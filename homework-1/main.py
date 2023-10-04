@@ -5,8 +5,8 @@ if __name__ == '__main__':
     n2 = Node('a', n1)
     print(n1.data)  # 5
     print(n2.data)  # a
-    print(n1)  # <__main__.Node object at 0x0000022803036050>
-    print(n2.next_node)  # <__main__.Node object at 0x0000022803036050>
+    print(n1)  # <src.stack.Node object at 0x...>
+    print(n2.next_node)  # <src.stack.Node object at 0x...>
 
     stack = Stack()
     stack.push('data1')
@@ -16,4 +16,3 @@ if __name__ == '__main__':
     print(stack.top.next_node.data)  # data2
     print(stack.top.next_node.next_node.data)  # data1
     print(stack.top.next_node.next_node.next_node)  # None
-    print(stack.top.next_node.next_node.next_node.data)  # AttributeError: 'NoneType' object has no attribute 'data'
