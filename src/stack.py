@@ -36,10 +36,10 @@ class Stack:
         """
         Метод для удаления элемента с вершины стека и его возвращения
 
-        :return: данные удаленного элемента
+        :return: данные удаленного элемента или None, если стек пуст
         """
         if self.top is None:
-            raise ValueError("Стек пуст")
+            return None
         data = self.top.data
         self.top = self.top.next_node
         return data
