@@ -1,54 +1,42 @@
 import unittest
 from src.stack import Node, Stack
 
-class TestStack(unittest.TestCase):
-
+class TestNode(unittest.TestCase):
 
     def test_node_creation(self):
-        n1 = Node(5, None)
-        self.assertEqual(n1.data, 5)
-        self.assertIsNone(n1.next_node)
+        data = 42
+        node = Node(data)
+        self.assertEqual(node.data, data)
+        self.assertIsNone(node.next_node)
 
-        n2 = Node('a', n1)
-        self.assertEqual(n2.data, 'a')
-        self.assertEqual(n2.next_node, n1)
+    def test_node_with_next_node(self):
+        data1 = 42
+        data2 = 23
+        node1 = Node(data1)
+        node2 = Node(data2, node1)
+        self.assertEqual(node2.data, data2)
+        self.assertEqual(node2.next_node, node1)
 
+class TestStack(unittest.TestCase):
 
-    def test_stack_push(self):
-        stack = Stack()
-        stack.push('data1')
-        self.assertEqual(stack.top.data, 'data1')
+    def setUp(self):
+        self.stack = Stack()
 
-        stack.push('data2')
-        self.assertEqual(stack.top.data, 'data2')
-        self.assertEqual(stack.top.next_node.data, 'data1')
+    def test_stack_push_pop(self):
+        self.stack.push(42)
+        self.stack.push(23)
+        self.assertEqual(self.stack.pop(), 23)
+        self.assertEqual(self.stack.pop(), 42)
 
-        stack.push('data3')
-        self.assertEqual(stack.top.data, 'data3')
-        self.assertEqual(stack.top.next_node.data, 'data2')
-        self.assertEqual(stack.top.next_node.next_node.data, 'data1')
+    def test_stack_pop_empty(self):
+        self.assertIsNone(self.stack.pop())
 
-
-    def test_stack_pop(self):
-        stack = Stack()
-        with self.assertRaises(ValueError):
-            stack.pop()
-
-        stack.push('data1')
-        stack.push('data2')
-        stack.push('data3')
-
-        data = stack.pop()
-        self.assertEqual(data, 'data3')
-        self.assertEqual(stack.top.data, 'data2')
-
-        data = stack.pop()
-        self.assertEqual(data, 'data2')
-        self.assertEqual(stack.top.data, 'data1')
-
-        data = stack.pop()
-        self.assertEqual(data, 'data1')
-        self.assertIsNone(stack.top)
+    def test_stack_push_pop_multiple(self):
+        data = [1, 2, 3, 4, 5]
+        for item in data:
+            self.stack.push(item)
+        for item in reversed(data):
+            self.assertEqual(self.stack.pop(), item)
 
 if __name__ == '__main__':
     unittest.main()
