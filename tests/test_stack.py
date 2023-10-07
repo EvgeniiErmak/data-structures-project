@@ -2,41 +2,40 @@ import unittest
 from src.stack import Node, Stack
 
 class TestNode(unittest.TestCase):
-
     def test_node_creation(self):
-        data = 42
-        node = Node(data)
-        self.assertEqual(node.data, data)
+        node = Node(5)
+        self.assertEqual(node.data, 5)
         self.assertIsNone(node.next_node)
 
     def test_node_with_next_node(self):
-        data1 = 42
-        data2 = 23
-        node1 = Node(data1)
-        node2 = Node(data2, node1)
-        self.assertEqual(node2.data, data2)
-        self.assertEqual(node2.next_node, node1)
+        next_node = Node(10)
+        node = Node(5, next_node)
+        self.assertEqual(node.data, 5)
+        self.assertEqual(node.next_node, next_node)
 
 class TestStack(unittest.TestCase):
+    def test_stack_creation(self):
+        stack = Stack()
+        self.assertIsNone(stack.top)
 
-    def setUp(self):
-        self.stack = Stack()
+    def test_push_and_pop(self):
+        stack = Stack()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
 
-    def test_stack_push_pop(self):
-        self.stack.push(42)
-        self.stack.push(23)
-        self.assertEqual(self.stack.pop(), 23)
-        self.assertEqual(self.stack.pop(), 42)
+        self.assertEqual(stack.pop(), 3)
+        self.assertEqual(stack.pop(), 2)
+        self.assertEqual(stack.pop(), 1)
+        self.assertIsNone(stack.pop())
 
-    def test_stack_pop_empty(self):
-        self.assertIsNone(self.stack.pop())
+    def test_str_method(self):
+        stack = Stack()
+        stack.push(1)
+        stack.push(2)
+        stack.push(3)
 
-    def test_stack_push_pop_multiple(self):
-        data = [1, 2, 3, 4, 5]
-        for item in data:
-            self.stack.push(item)
-        for item in reversed(data):
-            self.assertEqual(self.stack.pop(), item)
+        self.assertEqual(str(stack), "3 2 1")
 
 if __name__ == '__main__':
     unittest.main()

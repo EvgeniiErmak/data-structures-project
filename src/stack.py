@@ -15,11 +15,9 @@ class Node:
 class Stack:
     """Класс для стека"""
 
-
     def __init__(self):
         """Конструктор класса Stack"""
         self.top = None
-
 
     def push(self, data):
         """
@@ -30,7 +28,6 @@ class Stack:
         new_node = Node(data)
         new_node.next_node = self.top
         self.top = new_node
-
 
     def pop(self):
         """
@@ -43,3 +40,16 @@ class Stack:
         data = self.top.data
         self.top = self.top.next_node
         return data
+
+    def __str__(self):
+        """
+        Метод для представления стека в виде строки
+
+        :return: строковое представление стека
+        """
+        current = self.top
+        stack_str = ""
+        while current:
+            stack_str += str(current.data) + " "
+            current = current.next_node
+        return stack_str.rstrip()  # Удаляем лишний пробел в конце строки
