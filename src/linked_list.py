@@ -5,7 +5,6 @@ class Node:
         self.data = data
         self.next_node = None
 
-
 class LinkedList:
     """Класс для односвязного списка"""
 
@@ -32,6 +31,33 @@ class LinkedList:
         else:
             self.tail.next_node = new_node
             self.tail = new_node
+
+    def to_list(self):
+        """Возвращает список с данными, содержащимися в односвязном списке LinkedList"""
+        data_list = []
+        current_node = self.head
+        while current_node:
+            data_list.append(current_node.data)
+            current_node = current_node.next_node
+        return data_list
+
+    def get_data_by_id(self, id_value):
+        """
+        Возвращает первый найденный в LinkedList словарь с ключом 'id',
+        значение которого равно переданному в метод значению.
+        В случае ошибки TypeError, печатает сообщение о неподходящем формате данных.
+        """
+        current_node = self.head
+        try:
+            while current_node:
+                data = current_node.data
+                if isinstance(data, dict) and 'id' in data and data['id'] == id_value:
+                    return data
+                current_node = current_node.next_node
+            return None
+        except TypeError:
+            print("Данные не являются словарем или в словаре нет id.")
+            return None
 
     def __str__(self):
         """Вывод данных односвязного списка в строковом представлении"""
